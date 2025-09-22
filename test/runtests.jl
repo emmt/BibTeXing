@@ -2,6 +2,7 @@ module BibTeXingTests
 
 using BibTeXing
 using Test
+using Aqua
 
 @testset "BibTeXing" begin
     inp = joinpath(@__DIR__, "test1.bib")
@@ -66,7 +67,10 @@ using Test
     catch ex
         println(stderr, "Temporary file: \"$tmp\"")
     end
+end
 
+@testset "Quality tests" begin
+    Aqua.test_all(BibTeXing)
 end
 
 end # module
