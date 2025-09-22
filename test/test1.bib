@@ -1,5 +1,9 @@
 % Encoding: UTF-8
 
+Preamble:
+@preamble{"\def\leftbrace{{\ifusingtt{\char123}{\ensuremath\lbrace}}}"}
+@preamble({\def\rightbrace{{\ifusingtt{\char125}{\ensuremath\rbrace}}}})
+
 Jounal names:
 @string{ AAp   = {Astronomy \& Astrophysics} }
 @string{ AApL  = AAp # { Letters} }

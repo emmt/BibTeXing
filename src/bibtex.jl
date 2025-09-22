@@ -302,7 +302,6 @@ function Base.parse(::Type{BibTeX}, ctx::Context; debug::Bool=false)
             isempty(value) || push!(bib.preamble, value)
             startswith(skipspaces!(ctx), closing) || throw(ParseError(
                 ctx, "expecting '$closing' after \"@$type$opening…\" entry"))
-            bib.strings[name] = value
         elseif type === :string
             name = fetch_ident!(ctx)
             isnothing(name) && throw(ParseError(

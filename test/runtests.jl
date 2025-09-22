@@ -11,8 +11,12 @@ using Test
     @test A == A
     @test isequal(A, A)
     @test A.preamble isa AbstractVector
+    @test A.preamble == [
+        ["\"\\def\\leftbrace{{\\ifusingtt{\\char123}{\\ensuremath\\lbrace}}}\""],
+        ["{\\def\\rightbrace{{\\ifusingtt{\\char125}{\\ensuremath\\rbrace}}}}"]]
     @test A.strings isa AbstractDict{Symbol}
     @test A.entries isa AbstractDict{String}
+    @test collect(keys(A.strings)) == [:AAp, :AApL, :AApR, :AApS, :AJ, :ARAA, :ActaA, :ApJ, :ApJL, :ApJS, :and, :Foy, :Labeyrie]
     @test A.strings[:and] == ["\" and \""]
     @test A.strings[:AAp] == ["{Astronomy \\& Astrophysics}"]
     @test A.strings[:AApL] == [:AAp, "{ Letters}"]
