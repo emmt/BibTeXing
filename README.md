@@ -1,4 +1,5 @@
-# BibTeXing [![Build Status](https://github.com/emmt/BibTeXing.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/emmt/BibTeXing.jl/actions/workflows/CI.yml?query=branch%3Amain) [![Build Status](https://ci.appveyor.com/api/projects/status/github/emmt/BibTeXing.jl?svg=true)](https://ci.appveyor.com/project/emmt/BibTeXing-jl) [![Coverage](https://codecov.io/gh/emmt/BibTeXing.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/emmt/BibTeXing.jl)
+# BibTeXing
+[![Build Status](https://github.com/emmt/BibTeXing.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/emmt/BibTeXing.jl/actions/workflows/CI.yml?query=branch%3Amain) [![Build Status](https://ci.appveyor.com/api/projects/status/github/emmt/BibTeXing.jl?svg=true)](https://ci.appveyor.com/project/emmt/BibTeXing-jl) [![Coverage](https://codecov.io/gh/emmt/BibTeXing.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/emmt/BibTeXing.jl)
 
 *BibTeXing* is a [Julia](https://julialang.org) package for managing bibliography in
 [BibTeX](https://en.wikipedia.org/wiki/BibTeX) format.
@@ -30,17 +31,18 @@ The `bib` object (of type `BibTeX`) has the following content:
 
 - `bib.strings` is an ordered dictionary of string definitions built from the `@string`
    entries of the BibTeX database; `bib.strings[ident]` is the *value* corresponding to the
-   identifier `ident` (a `Symbol`ic name);
+   identifier `ident` (a `Symbol`);
 
 - `bib.entries` is an ordered dictionary of entries and `bib.entries[key]` is the entry for
-  BibTeX `key` (a string) and has a number of properties:
+  BibTeX `key` (a `String`) with the following properties:
 
   - `bib.entries[key].type` is a `Symbol` set with the entry type like `:article` or `:book`
-    (always in lowercase letters, even if they have uppercase letters in the source);
-  - `bib.entries[key].key` is the entry key;
+    (always in lowercase letters, even if the entry type is written with uppercase letters
+    in the source);
+  - `bib.entries[key].key` is the BibTeX key of the entry (a `String`);
   - `bib.entries[key].fields` is a dictionary of fields indexed by their symbolic names like
-    `:author`, `:title`, or `:year` (also in lowercase letters, even if they have uppercase
-    letters in the source file);
+    `:author`, `:title`, or `:year` (also in lowercase letters, even if they are written
+    with uppercase letters in the source file);
 
 To get the *value* of a field in a BibTeX entry, write:
 
@@ -48,13 +50,11 @@ To get the *value* of a field in a BibTeX entry, write:
 bib.entries[key].fields[field]
 ```
 
-or:
+or for short:
 
 ``` julia
 bib.entries[key][field]
 ```
-
-as a shortcut.
 
 In order to preserve the structure of the BibTeX database, a BibTeX *value* is stored as a
 vector of pieces of value. Each piece of value is either a `String` (enclosed in braces or
@@ -78,13 +78,15 @@ BibTeXing.save!(filename, bib)
 
 ## Links
 
-In its tutorial [*Tame the
+In his tutorial [*Tame the
 BeaST*](https://tug.ctan.org/info/bibtex/tamethebeast/ttb_en.pdf), Nicolas Markey provides
 many useful explanations and tricks about BibTeX files. In particular, he suggests to use
 `@string` definitions for author's names in order to avoid misspelling (*Section 11. The
 `author` field*). Personally, I also use `@string` definitions for journal names to deal
 with the various abbreviations used by editors. These are some of the reasons to preserve
 the structure of a BibTeX database.
+
+A description of BibTeX grammar is provided [here](https://github.com/aclements/biblib#recognized-grammar).
 
 To my knowledge, there exist the following Julia packages for dealing with BibTeX files:
 
