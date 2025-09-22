@@ -5,8 +5,8 @@ Return an empty BibTeX database.
 
 """
 BibTeX() = BibTeX(Vector{Value}(undef, 0),
-                  Dict{Symbol,eltype(Value)}(),
-                  Dict{String,Entry}())
+                  OrderedDict{Symbol,Value}(),
+                  OrderedDict{String,Entry}())
 
 """
     bib = BibTeX(str)
